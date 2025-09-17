@@ -10,6 +10,8 @@ object Versions {
     val sjsdom = "2.8.1"
     val laminar = "17.2.1"
     val utest = "0.9.1"
+    val sourcecode             = "0.4.4"
+    val fansi                  = "0.5.1"
 }
 
 object www extends ScalaJSModule {
@@ -20,7 +22,9 @@ object www extends ScalaJSModule {
   
   def mvnDeps = Seq(
     mvn"com.raquo::laminar::${Versions.laminar}",
-    mvn"org.scala-js::scalajs-dom::${Versions.sjsdom}"
+    mvn"org.scala-js::scalajs-dom::${Versions.sjsdom}",
+    mvn"com.lihaoyi::sourcecode::${Versions.sourcecode}",
+    mvn"com.lihaoyi::fansi::${Versions.fansi}"
   )
 
   object test extends ScalaJSTests with TestModule.Utest {
