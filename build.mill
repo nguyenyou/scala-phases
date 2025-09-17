@@ -1,0 +1,34 @@
+//| mill-version: 1.0.5
+
+package build
+
+import mill.*, scalalib.*, scalajslib.*, scalajslib.api.*
+
+object Versions {
+    val scala3 = "3.7.3"
+    val sjs = "1.20.1"
+    val sjsdom = "2.8.1"
+    val laminar = "17.2.1"
+    val utest = "0.9.1"
+}
+
+object www extends ScalaJSModule {
+  def scalaVersion = Versions.scala3
+  def scalaJSVersion = Versions.sjs
+  def moduleKind = ModuleKind.ESModule
+  def moduleSplitStyle = ModuleSplitStyle.FewestModules
+  
+  def mvnDeps = Seq(
+    mvn"com.raquo::laminar::${Versions.laminar}",
+    mvn"org.scala-js::scalajs-dom::${Versions.sjsdom}"
+  )
+
+  object test extends ScalaJSTests with TestModule.Utest {
+    def utestVersion = Versions.utest
+    def moduleKind = ModuleKind.NoModule
+  }
+
+  def jsEnvConfig = Task {
+    JsEnvConfig.JsDom()
+  }
+}
